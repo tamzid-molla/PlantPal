@@ -13,7 +13,7 @@ const MyPlants = () => {
   useEffect(() => {
     document.title = "PlantPal || My Plants";
     fetch(
-      `https://assignment-10-server-bice-tau.vercel.app/plants/byEmail?email=${user.email}`
+      `${import.meta.env.VITE_baseURL}/plants/byEmail?email=${user.email}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -51,7 +51,7 @@ const MyPlants = () => {
       .then((result) => {
         if (result.isConfirmed) {
           fetch(
-            `https://assignment-10-server-bice-tau.vercel.app/plants/${id}`,
+            `${import.meta.env.VITE_baseURL}/plants/${id}`,
             {
               method: "DELETE",
             }
@@ -89,7 +89,7 @@ const MyPlants = () => {
   };
 
   return (
-    <>
+    <div className="pt-8">
       {loader ? (
         <Loader></Loader>
       ) : (
@@ -98,7 +98,7 @@ const MyPlants = () => {
             dark ? "bg-gray-800" : "bg-gray-100"
           } my-20 py-20`}
         >
-          <h1 className="text-4xl font-extrabold text-center mb-8 text-green-700">
+          <h1 className="text-4xl font-extrabold text-center mb-8 text-teal-600">
             My Plants
           </h1>
           {myData.length === 0 ? (
@@ -197,7 +197,7 @@ const MyPlants = () => {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

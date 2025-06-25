@@ -44,7 +44,7 @@ export const router = createBrowserRouter([
         path: "/plants/:id",
         loader: ({ params }) =>
           fetch(
-            `https://assignment-10-server-bice-tau.vercel.app/plants/${params.id}`
+            `${import.meta.env.VITE_baseURL}/plants/${params.id}`
           ),
         element: (
           <PrivateRoute>
@@ -64,7 +64,7 @@ export const router = createBrowserRouter([
         path: "/update/:id",
         loader: ({ params }) =>
           fetch(
-            `https://assignment-10-server-bice-tau.vercel.app/plants/${params.id}`
+            `${import.meta.env.VITE_baseURL}/plants/${params.id}`
           ),
         Component: Update,
       },

@@ -11,7 +11,7 @@ const AddPlants = () => {
     const formData = new FormData(e.target);
     const entrees = Object.fromEntries(formData.entries());
 
-    fetch("https://assignment-10-server-bice-tau.vercel.app/plants", {
+    fetch(`${import.meta.env.VITE_baseURL}/plants`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(entrees),

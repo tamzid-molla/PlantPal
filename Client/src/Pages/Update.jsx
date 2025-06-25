@@ -28,7 +28,7 @@ const Update = () => {
     const entrees = Object.fromEntries(formData.entries());
 
     fetch(
-      `https://assignment-10-server-bice-tau.vercel.app/plants/${updateData._id}`,
+      `${import.meta.env.VITE_baseURL}/plants/${updateData._id}`,
       {
         method: "PUT",
         headers: { "Content-type": "application/json" },

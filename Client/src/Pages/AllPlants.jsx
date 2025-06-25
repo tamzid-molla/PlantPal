@@ -12,7 +12,7 @@ const AllPlants = () => {
 
   useEffect(() => {
     document.title = "PlantPal || All Plants";
-    fetch("https://assignment-10-server-bice-tau.vercel.app/plants")
+    fetch(`${import.meta.env.VITE_baseURL}/plants`)
       .then((res) => res.json())
       .then((data) => {
         setPlants(data);
@@ -31,7 +31,7 @@ const AllPlants = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-380px)]">
+    <div className="min-h-[calc(100vh-380px)] pt-8">
       {loader ? (
         <Loader></Loader>
       ) : plants.length === 0 ? (
@@ -53,11 +53,7 @@ const AllPlants = () => {
             </button>
             <div className="bg-white rounded-xl shadow-lg overflow-hidden">
               <div
-                className={`p-4 sm:p-6 ${
-                  dark
-                    ? "bg-[#2E7D32]"
-                    : "bg-gradient-to-r from-green-600 to-green-400"
-                }`}
+                className={`p-4 sm:p-6 bg-teal-600`}
               >
                 <h2 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
                   <FaLeaf className="text-green-200" /> Plant Collection
@@ -142,9 +138,7 @@ const AllPlants = () => {
                         <td className="py-4 px-4 sm:px-6 text-center">
                           <Link
                             to={`/plants/${plant._id}`}
-                            className={`inline-flex items-center px-3 py-1 sm:px-4 sm:py-2 ${
-                              dark ? "bg-[#2E7D32]" : "bg-primary"
-                            } text-white rounded-lg hover:bg-green-600 transition-colors duration-200 text-sm sm:text-base`}
+                            className={`inline-flex items-center px-3 py-1 sm:px-4 sm:py-2 bg-teal-500 hover:bg-teal-600 text-white rounded-lg transition-colors duration-200 text-sm sm:text-base`}
                           >
                             <FaEye className="mr-1 sm:mr-2" /> View Details
                           </Link>
