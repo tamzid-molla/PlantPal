@@ -30,6 +30,18 @@ const Nav = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const links = <>
+  <NavLink to="/" className=''>
+            Home
+          </NavLink>
+          <NavLink to="/allPlants">
+            All Plants
+          </NavLink>
+          <NavLink to="/dashboard">
+            Dashboard
+          </NavLink>
+  </>
+
   return (
       <div className="flex justify-between w-11/12 mx-auto relative">
       <div className="flex items-center gap-3">
@@ -39,18 +51,7 @@ const Nav = () => {
 
       <div className="flex gap-5 xl:gap-20 items-center">
         <div className="space-x-7 xl:space-x-14 hidden lg:block font-medium text-lg">
-          <NavLink to="/" className=''>
-            Home
-          </NavLink>
-          <NavLink to="/allPlants">
-            All Plants
-          </NavLink>
-          <NavLink  to="/addPlants" >
-            Add Plants
-          </NavLink>
-          <NavLink to="/myPlants">
-            My Plants
-          </NavLink>
+          {links}
               </div>
               
         <div className="space-x-6 flex items-center">
@@ -85,33 +86,7 @@ const Nav = () => {
           <button className="self-end" onClick={toggleSidebar}>
             <MdClose size={30} />
           </button>
-          <NavLink
-            to="/"
-            
-            onClick={toggleSidebar}
-          >
-            Home
-          </NavLink>
-          <NavLink
-            to="/allPlants"
-           
-            onClick={toggleSidebar}
-          >
-            All Plants
-          </NavLink>
-          <NavLink
-            to="/addPlants"
-            
-            onClick={toggleSidebar}
-          >
-            Add Plants
-          </NavLink>
-          <NavLink
-            to="/myPlants"
-            onClick={toggleSidebar}
-          >
-            My Plants
-                  </NavLink>
+         {links}
           {
             user ? <button onClick={handleLogout} className="btn md:hidden text-lg px-5 xl:px-7">Logout</button>
               :

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FaLeaf, FaEye } from "react-icons/fa";
+import { FaLeaf, FaEye, FaSort, FaFilter } from "react-icons/fa";
 import { Link } from "react-router";
 import Loader from "../Components/Loader";
 import NoPlants from "../Components/NoPlants";
@@ -9,6 +9,8 @@ const AllPlants = () => {
   const { dark } = useContext(AuthContext);
   const [plants, setPlants] = useState([]);
   const [loader, setLoader] = useState(true);
+  const [sortOrder, setSortOrder] = useState("asc"); // asc or desc
+  const [filterCategory, setFilterCategory] = useState("all"); // all or specific category
 
   useEffect(() => {
     document.title = "PlantPal || All Plants";
@@ -23,12 +25,26 @@ const AllPlants = () => {
       });
   }, []);
 
+  // Sorting function
   const handleSort = () => {
-    const sortedItems = [...plants].sort(
-      (a, b) => a.careLevelPriority - b.careLevelPriority
+    const sortedItems = [...plants].sort((a, b) =>
+      sortOrder === "asc"
+        ? a.careLevelPriority - b.careLevelPriority
+        : b.careLevelPriority - a.careLevelPriority
     );
     setPlants(sortedItems);
+    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
+
+  // Filtering function
+  const handleFilter = (e) => {
+    setFilterCategory(e.target.value);
+  };
+
+  // Filtered plants
+  const filteredPlants = filterCategory === "all"
+    ? plants
+    : plants.filter((plant) => plant.category === filterCategory);
 
   return (
     <div className="min-h-[calc(100vh-380px)] pt-8">
@@ -43,110 +59,85 @@ const AllPlants = () => {
               dark ? "bg-gray-700" : "bg-green-50"
             } rounded-xl my-28`}
           >
-            <button
-              onClick={handleSort}
-              className={`btn block mx-auto my-7 ${
-                dark ? "bg-[#2E7D32]" : "bg-primary"
-              } text-lg text-white`}
-            >
-              Sort by careLevel
-            </button>
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-              <div
-                className={`p-4 sm:p-6 bg-teal-600`}
+            <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+              <button
+                onClick={handleSort}
+                className={`flex items-center gap-2 
+                  dark  bg-teal-500  text-lg text-white px-4 py-2 rounded-lg hover:bg-teal-600`}
               >
+                <FaSort /> Sort by Care Level{" "}
+                {sortOrder === "asc" ? "(Asc)" : "(Desc)"}
+              </button>
+              <select
+                onChange={handleFilter}
+                value={filterCategory}
+                className={`w-full sm:w-auto ${
+                  dark ? "bg-gray-600 text-white" : "bg-white text-gray-900"
+                } border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-teal-600`}
+              >
+                <option value="all">All Categories</option>
+                <option value="herb">Herb</option>
+                <option value="fern">Fern</option>
+                <option value="cactus">Cactus</option>
+              </select>
+            </div>
+            <div className="bg-white rounded-xl overflow-hidden">
+              <div className={`p-4 sm:p-6 bg-teal-600`}>
                 <h2 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
                   <FaLeaf className="text-green-200" /> Plant Collection
                 </h2>
               </div>
-
-              <div className="overflow-x-auto ">
-                <table className="w-full">
-                  <thead>
-                    <tr
-                      className={`${
-                        dark
-                          ? "bg-green-950 text-white"
-                          : "bg-green-100 text-green-900"
-                      } uppercase text-xs sm:text-sm`}
-                    >
-                      <th className="py-3 px-4 sm:px-6 text-left">
-                        Plant Image
-                      </th>
-                      <th className="py-3 px-4 sm:px-6 text-left">
-                        Plant Name
-                      </th>
-                      <th className="py-3 px-4 sm:px-6 text-left">
-                        Care Level
-                      </th>
-                      <th className="py-3 px-4 sm:px-6 text-left">
-                        Category
-                      </th>
-                      <th className="py-3 px-4 sm:px-6 text-left">
-                        Watering Frequency
-                      </th>
-                      <th className="py-3 px-4 sm:px-6 text-center">
-                        Action
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {plants.map((plant) => (
-                      <tr
-                        key={plant._id}
-                        className={`border-b ${
-                          dark
-                            ? "border-gray-400 bg-gray-500 hover:bg-gray-600"
-                            : "border-green-100 hover:bg-green-50"
-                        } transition-colors duration-200`}
+              <div className={`grid grid-cols-1 ${dark && "bg-gray-700"} sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 sm:p-6`}>
+                {filteredPlants.map((plant) => (
+                  <div
+                    key={plant._id}
+                    className={`bg-${
+                      dark ? "gray-600" : "green-50"
+                    } rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-103`}
+                  >
+                    <img
+                      src={plant.url}
+                      alt={plant.plantName}
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="p-4">
+                      <h3
+                        className={`text-lg font-medium ${
+                          dark ? "text-gray-100" : "text-gray-900"
+                        }`}
                       >
-                        <td className="py-4 px-4 sm:px-6">
-                          <img
-                            src={plant.url}
-                            className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded"
-                            alt={plant.plantName}
-                          />
-                        </td>
-                        <td
-                          className={`py-4 px-4 sm:px-6 font-medium ${
-                            dark ? "text-gray-100" : "text-gray-900"
-                          } text-sm sm:text-base`}
-                        >
-                          {plant.plantName}
-                        </td>
-                        <td
-                          className={`py-4 px-4 sm:px-6 font-medium ${
-                            dark ? "text-gray-100" : "text-gray-900"
-                          } text-sm sm:text-base`}
-                        >
-                          {plant.careLevel}
-                        </td>
-                        <td
-                          className={`py-4 px-4 sm:px-6 font-medium ${
-                            dark ? "text-gray-100" : "text-gray-700"
-                          } text-sm sm:text-base`}
-                        >
-                          {plant.category}
-                        </td>
-                        <td
-                          className={`py-4 px-4 sm:px-6 font-medium ${
-                            dark ? "text-gray-100" : "text-gray-700"
-                          } text-sm sm:text-base`}
-                        >
-                          {plant.wateringFrequency}
-                        </td>
-                        <td className="py-4 px-4 sm:px-6 text-center">
-                          <Link
-                            to={`/plants/${plant._id}`}
-                            className={`inline-flex items-center px-3 py-1 sm:px-4 sm:py-2 bg-teal-500 hover:bg-teal-600 text-white rounded-lg transition-colors duration-200 text-sm sm:text-base`}
-                          >
-                            <FaEye className="mr-1 sm:mr-2" /> View Details
-                          </Link>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                        {plant.plantName}
+                      </h3>
+                      <p
+                        className={`text-sm ${
+                          dark ? "text-gray-300" : "text-gray-700"
+                        }`}
+                      >
+                        Care Level: {plant.careLevel}
+                      </p>
+                      <p
+                        className={`text-sm ${
+                          dark ? "text-gray-300" : "text-gray-700"
+                        }`}
+                      >
+                        Category: {plant.category}
+                      </p>
+                      <p
+                        className={`text-sm ${
+                          dark ? "text-gray-300" : "text-gray-700"
+                        }`}
+                      >
+                        Watering: {plant.wateringFrequency}
+                      </p>
+                      <Link
+                        to={`/plants/${plant._id}`}
+                        className={`mt-4 inline-flex items-center px-3 py-2 bg-teal-500 hover:bg-teal-600 text-white rounded-lg transition-colors duration-200 text-sm`}
+                      >
+                        <FaEye className="mr-1" /> View Details
+                      </Link>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

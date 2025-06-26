@@ -10,6 +10,12 @@ import Login from "../Pages/Login";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import Update from "../Pages/Update";
 import ErrorPage from "../Pages/ErrorPage";
+import DashBoardLayout from "../DashboardLayout/DashBoardLayout";
+import DashBoardMain from "../Components/DashBoardComponents/DashBoardMain";
+import Profile from "../Components/DashBoardComponents/Profile";
+import Settings from "../Components/DashBoardComponents/DashboardCards/Settings";
+import ReminderPlants from "../Components/DashBoardComponents/DashboardCards/ReminderPlants";
+import HealthOverview from "../Components/DashBoardComponents/DashboardCards/HealthOverview";
 
 export const router = createBrowserRouter([
   {
@@ -74,4 +80,49 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  {
+     
+        path: '/dashboard',
+        element: <PrivateRoute>
+          <DashBoardLayout></DashBoardLayout>
+        </PrivateRoute>,
+    children: [
+      {
+        index: true,
+        Component: DashBoardMain
+      },
+      {
+        path: "/dashboard/addPlants",
+        element: (
+          <PrivateRoute>
+            <AddPlants></AddPlants>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/myPlants",
+        element: (
+          <PrivateRoute>
+            <MyPlants></MyPlants>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/dashboard/profile',
+        Component: Profile
+      },
+      {
+        path: '/dashboard/settings',
+        Component: Settings
+      },
+      {
+        path: '/dashboard/reminder',
+        Component: ReminderPlants
+      },
+      {
+        path: '/dashboard/health',
+        Component: HealthOverview
+      },
+    ]
+  }
 ]);

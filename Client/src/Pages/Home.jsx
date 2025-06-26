@@ -1,6 +1,5 @@
 import Banner from "../Components/Banner";
 import Expert from "../Components/Expert";
-import Achivments from "../Components/Achivments";
 import NewPlants from "../Components/NewPlants";
 import { useEffect, useState } from "react";
 import Loader from "../Components/Loader";
@@ -33,7 +32,6 @@ const Home = () => {
             <TopPlantCareMistakes></TopPlantCareMistakes>
             <BeginnerFriendlyPlants></BeginnerFriendlyPlants>
           <Expert></Expert>
-          <Achivments></Achivments>
         </div>
       )}
     </>
