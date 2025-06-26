@@ -54,18 +54,13 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/dashboard" className="text-gray-400 hover:text-white">
-                    Dashboard
+                  <Link to="/allPlants" className="text-gray-400 hover:text-white">
+                    All Plants
                   </Link>
                 </li>
                 <li>
-                  <Link to="/dashboard/profile" className="text-gray-400 hover:text-white">
-                    Profile
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/dashboard/settings" className="text-gray-400 hover:text-white">
-                    Settings
+                  <Link to="/about" className="text-gray-400 hover:text-white">
+                    About Us
                   </Link>
                 </li>
               </ul>

@@ -36,9 +36,15 @@ const Nav = () => {
           </NavLink>
           <NavLink to="/allPlants">
             All Plants
-          </NavLink>
-          <NavLink to="/dashboard">
+    </NavLink>
+    {
+      user && <NavLink to="/dashboard">
             Dashboard
+          </NavLink>
+    }
+          
+          <NavLink to="/about">
+            About Us
           </NavLink>
   </>
 
@@ -61,11 +67,7 @@ const Nav = () => {
               <Link to="/login"><button className="btn hidden md:block text-lg px-5 xl:px-7">Login</button></Link>
           }
           {
-            user ? <>
-              <img data-tooltip-id="my-tooltip" data-tooltip-place="" data-tooltip-content={user.displayName} src={urlError? defaultImage : user.photoURL} onError={()=>{setUrlError(true)}} className='w-14 h-14 p-1 bg-white cursor-pointer rounded-full' alt="" />
-              <Tooltip id="my-tooltip" />
-            </>
-              :
+            !user &&
               <Link to='/register'><button className="btn  hidden md:block text-lg px-5 xl:px-7">Register</button></Link>
           }
           

@@ -16,6 +16,7 @@ import Profile from "../Components/DashBoardComponents/Profile";
 import Settings from "../Components/DashBoardComponents/DashboardCards/Settings";
 import ReminderPlants from "../Components/DashBoardComponents/DashboardCards/ReminderPlants";
 import HealthOverview from "../Components/DashBoardComponents/DashboardCards/HealthOverview";
+import About from "../Components/About";
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ export const router = createBrowserRouter([
       {
         path: "/login",
         Component: Login,
+      },
+      {
+        path: "/about",
+        Component: About,
       },
       {
         path: "/update/:id",

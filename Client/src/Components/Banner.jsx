@@ -14,7 +14,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 const Banner = () => {
   return (
-    <>
+    <div className="pt-40">
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
@@ -28,7 +28,7 @@ const Banner = () => {
         }}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
-        className="w-full h-[60vh] md:mt-0 md:h-[70vh] lg:h-[calc(100vh-90px)]"
+        className="container h-[60vh] md:mt-0 md:h-[60vh] rounded-2xl"
       >
         <SwiperSlide>
           <div className="relative inline-block w-full h-full">
@@ -89,7 +89,7 @@ const Banner = () => {
           </div>
         </SwiperSlide>
           </Swiper>
-    </>
+    </div>
   );
 };
 
